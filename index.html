@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  .quiz-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  h1 {
+    text-align: center;
+    padding: 20px;
+    color: #333;
+  }
+  .question {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .options label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .options input[type="radio"] {
+    margin-right: 10px;
+  }
+  .submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .result {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+    color: #007bff;
+  }
+
+  .show-answers-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: none;
+  }
+  .correct-answer {
+    color: #28a745;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+  <h1>Quiz</h1>
+  <form id="quiz-form">
+    <div class="question">1. பத்தொன்பதாம் நூற்றாண்டில், ஐரோப்பிய சக்திகள் உலகின் ஏனைய பெரிய, சிறிய நாடுகளைக் காலனியப்படுத்தி, தங்களின் நலனுக்காக அவற்றை சுரண்டின.</div>
+    <div class="options">
+      <label><input type="radio" name="q1" value="a">உலகக் கொள்கை</label>
+      <label><input type="radio" name="q1" value="b">கலந்தது</label>
+      <label><input type="radio" name="q1" value="c">பெரிய நாடுகள்</label>
+    </div>
+    <div class="question">2. 1880 காலப் பகுதியில் பெரும்பபாலான ஆசிய நாடுகள் காலனிமயமாக கப்பப்பட்டுவிட்டன. ஆப்பிரிக்கா மட்டுமே விடுபட்டிருந்தது.</div>
+    <div class="options">
+      <label><input type="radio" name="q2" value="a">உலகக் கொள்கை</label>
+      <label><input type="radio" name="q2" value="b">கலந்தது</label>
+      <label><input type="radio" name="q2" value="c">ஆப்பிரிக்கா மட்டுமே</label>
+    </div>
+    <div class="question">3. 1881-1914 ஆம் ஆண்டுகளுக்கு இடையே ஆப்பிரிக்காவும் கைப்பற்றப்பட்டு, பிரிக்கப்பட்டு, காலனிகளாக ஆக்கப்பட்டது.</div>
+    <div class="options">
+      <label><input type="radio" name="q3" value="a">உலகக் கொள்கை</label>
+      <label><input type="radio" name="q3" value="b">கலந்தது</label>
+      <label><input type="radio" name="q3" value="c">பிரிக்கப்பட்டு</label>
+    </div>
+    <div class="question">4. ஐரோப்பிய சக்திகள் எந்த ஆண்டில் கலந்துகொண்டன?</div>
+    <div class="options">
+      <label><input type="radio" name="q4" value="a">1870ஆம் ஆண்டிற்கு பின்</label>
+      <label><input type="radio" name="q4" value="b">1880ஆம் ஆண்டிற்கு பின்</label>
+      <label><input type="radio" name="q4" value="c">1890ஆம் ஆண்டிற்கு பின்</label>
+    </div>
+    <div class="question">5. ஜப்பபான் எழுச்சி எப்போது நடந்தது?</div>
+    <div class="options">
+      <label><input type="radio" name="q5" value="a">1867-1912</label>
+      <label><input type="radio" name="q5" value="b">1870-1890</label>
+      <label><input type="radio" name="q5" value="c">1880-1900</label>
+    </div>
+    <button class="submit-btn" type="button" onclick="checkAnswers()">Submit</button>
+  </form>
+  <div class="result" id="result"></div>
+
+  <button class="show-answers-btn" type="button" onclick="showAnswers()">Show Answers</button>
+  <div class="result" id="result"></div>
+</div>
+<script>
+function checkAnswers() {
+  const answers = {
+    q1: "a",
+    q2: "b",
+    q3: "c",
+    q4: "b",
+    q5: "a"
+  };
+  const form = document.getElementById("quiz-form");
+  let score = 0;
+
+  for (const question in answers) {
+    const selectedOption = form.elements[question].value;
+    if (selectedOption === answers[question]) {
+      score++;
+    }
+  }
+
+  const resultElement = document.getElementById("result");
+  resultElement.innerHTML = `You got ${score} out of 5 questions correct.`;
+  resultElement.style.display = "block";
+}
+function showAnswers() {
+  const correctAnswers = {
+    q1: "a",
+    q2: "b",
+    q3: "c",
+    q4: "b",
+    q5: "a"
+  };
+  const form = document.getElementById("quiz-form");
+  const showAnswersButton = document.querySelector(".show-answers-btn");
+
+  for (const question in correctAnswers) {
+    const correctOption = correctAnswers[question];
+    const label = form.querySelector(`input[name="${question}"][value="${correctOption}"]`).parentNode;
+    label.classList.add("correct-answer");
+  }
+
+  showAnswersButton.style.display = "none";
+}
+</script>
+</body>
+</html>
